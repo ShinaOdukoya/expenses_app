@@ -16,25 +16,34 @@ class TransactionList extends StatelessWidget {
         // height: MediaQuery.of(context).size.height * 0.5,
         // child:
         transactions.isEmpty
-            ? Column(
-                //crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'No transactions added yet',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 250,
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                      fit: BoxFit.cover,
+            ? LayoutBuilder(builder: (ctx, constraints) {
+                /**By using LayoutBuilder, it is
+               * possible to get the constraint
+               * of the container where
+               * transaction_list widget
+               * is used (which is main.dart
+               * in this case)
+               */
+                return Column(
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'No transactions added yet',
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
-                  ),
-                ],
-              )
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: constraints.maxHeight * 0.6,
+                      child: Image.asset(
+                        'assets/images/waiting.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                );
+              })
             : ListView.builder(
                 /**
        * child: ListView(
