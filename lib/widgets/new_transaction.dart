@@ -73,79 +73,94 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          TextField(
-            decoration: const InputDecoration(
-              labelText: 'Title',
-            ),
-            // onChanged: (val) {
-            //   titleInput = val;
-            // },
-            controller: titleController,
-            onSubmitted: (_) => _submitData(),
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            /**To address softkeyboard in
+             * landscape mode or on
+             * smaller devices.
+             * Also, wrapping the container
+             * with SingleChildScrollView
+             * cos BottomSheet has fixed
+             * size
+             */
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
           ),
-          TextField(
-            decoration: const InputDecoration(
-              labelText: 'Amount',
+          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Title',
+              ),
+              // onChanged: (val) {
+              //   titleInput = val;
+              // },
+              controller: titleController,
+              onSubmitted: (_) => _submitData(),
             ),
-            // onChanged: (value) => amountInput = value,
-            controller: amountController,
-            keyboardType: const TextInputType.numberWithOptions(
-              decimal: true,
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Amount',
+              ),
+              // onChanged: (value) => amountInput = value,
+              controller: amountController,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              onSubmitted: (_) => _submitData(),
             ),
-            onSubmitted: (_) => _submitData(),
-          ),
-          Container(
-            height: 50,
-            child: Row(
-              children: [
-                Expanded(
-                  //Expanded is needed to
-                  //make the items stretch
-                  //i.e take all the space
-                  //in the row
-                  child: Text(
-                    _selectedDate == null
-                        ? 'No Date Chosen'
-                        : 'Picked Date is ${DateFormat.yMd().format(_selectedDate!)}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w200,
+            Container(
+              height: 50,
+              child: Row(
+                children: [
+                  Expanded(
+                    //Expanded is needed to
+                    //make the items stretch
+                    //i.e take all the space
+                    //in the row
+                    child: Text(
+                      _selectedDate == null
+                          ? 'No Date Chosen'
+                          : 'Picked Date is ${DateFormat.yMd().format(_selectedDate!)}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w200,
+                      ),
                     ),
                   ),
-                ),
-                TextButton(
-                  onPressed: _presentDatePicker,
-                  child: const Text(
-                    'Choose Date',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  TextButton(
+                    onPressed: _presentDatePicker,
+                    child: const Text(
+                      'Choose Date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          ElevatedButton(
-            // onPressed: submitData,
-            onPressed: () {
-              _submitData();
-              // print(titleController.text);
-            },
-            child: Text(
-              'Add Transaction',
-              style: TextStyle(
-                  // color: Colors.purple,
-                  // color: Theme.of(context).primaryColor,
+            ElevatedButton(
+              // onPressed: submitData,
+              onPressed: () {
+                _submitData();
+                // print(titleController.text);
+              },
+              child: Text(
+                'Add Transaction',
+                style: TextStyle(
+                    // color: Colors.purple,
+                    // color: Theme.of(context).primaryColor,
 
-                  // The default is white
-                  // Just wanted to set the below explicitly
-                  // color: Theme.of(context).textTheme.button?.color,
-                  ),
+                    // The default is white
+                    // Just wanted to set the below explicitly
+                    // color: Theme.of(context).textTheme.button?.color,
+                    ),
+              ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
