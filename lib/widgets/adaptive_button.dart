@@ -11,13 +11,13 @@ class AdaptiveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoButton(
-            onPressed: () => handler,
+            onPressed: () => handler(),
             child: Text(
               text,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ))
         : TextButton(
-            onPressed: () => handler,
+            onPressed: () => handler(),
             child: const Text(
               'Choose Date',
               style: TextStyle(

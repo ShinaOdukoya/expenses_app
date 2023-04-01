@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../model/transaction.dart';
+import './transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -55,53 +56,8 @@ class TransactionList extends StatelessWidget {
        * )
        */
                 itemBuilder: (ctx, index) {
-                  return Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 4,
-                      horizontal: 2,
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        // radius: 30,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: FittedBox(
-                            child: Text('\$${transactions[index].amount}'),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        transactions[index].title,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      subtitle: Text(
-                        DateFormat.yMMMMd().format(transactions[index].date),
-                        style: const TextStyle(fontSize: 9),
-                      ),
-                      trailing: MediaQuery.of(context).size.width > 420
-                          /**The condition is for displaying
-                       * depending on type of screen
-                       * rather than orientation
-                       */
-                          ? TextButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.delete),
-                              label: const Text(
-                                'Delete',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                              ),
-                            )
-                          : IconButton(
-                              icon: const Icon(Icons.delete),
-                              color: Theme.of(context).errorColor,
-                              onPressed: () => deleteTx(transactions[index].id),
-                            ),
-                    ),
-                  );
+                  return TransactionItem(
+                      transaction: transactions[index], deleteTx: deleteTx);
                 },
                 itemCount: transactions.length,
                 // children: [
@@ -112,6 +68,8 @@ class TransactionList extends StatelessWidget {
               ));
   }
 }
+
+
 
 // return Card(
 //                   child: Row(
