@@ -45,27 +45,33 @@ class TransactionList extends StatelessWidget {
                   ],
                 );
               })
-            : ListView.builder(
-                /**
-       * child: ListView(
-       *  children[
-        *  transactionsList.map((ctx)=>{
-        *    Card()
-        *  })
-       *  ]
-       * )
-       */
-                itemBuilder: (ctx, index) {
-                  return TransactionItem(
-                      transaction: transactions[index], deleteTx: deleteTx);
-                },
-                itemCount: transactions.length,
-                // children: [
-                //   ...transactions
-                //       .map((tx) =>
-                //       .toList(),
-                // ],
-              ));
+            : ListView(
+                children:
+                    /**Since we have only one widget
+                 * we don't need to enclose the
+                 * widget in a list[] and we do
+                 * not need spread operator
+                 * 
+                 * Had to change ListView cos
+                 * key from constructor is
+                 * needed
+                 */
+                    transactions
+                        .map((tx) => TransactionItem(
+                              key: ValueKey(tx.id),
+                              transaction: tx,
+                              deleteTx: deleteTx,
+                            ))
+                        .toList()));
+
+    // ListView.builder(
+
+    //     itemBuilder: (ctx, index) {
+    //       return TransactionItem(
+    //           transaction: transactions[index], deleteTx: deleteTx);
+    //     },
+    //     itemCount: transactions.length,
+    //   ));
   }
 }
 
